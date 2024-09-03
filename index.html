@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization Chart</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400,500,600&amp;subset=latin,latin-ext"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid mt-2">
+      <!-- Diagram Section -->
+      <div class="row">
+
+
+        <div class="col-12"> 
+          <div id="myDiagramDiv" style="width: 100%; height: 600px; border: 1px solid black"></div>
+          </div>  
+          </div>
+          <div class="row mt-3">
+
+         
+          <div class="col-6">
+            <div class="form-group ">
+            <label for="theme">Select Theme:</label>
+            <select
+              id="theme"
+              class="form-control w-25"s
+              onchange="changeTheme()"
+            >
+              <option value="system">System</option>
+              <option value="light" selected="">Light</option>
+              <option value="dark" >Dark</option>
+            </select>
+          </div></div>  
+          <div class="col-6">
+            <button id="zoomToFit" class="btn btn-secondary">Zoom to Fit</button>
+            <button id="centerRoot" class="btn btn-secondary">
+              Center on Root
+            </button>
+        </div>
+    </div>
+        
+        </div>
+      </div>
+     
+       <div class="container">
+        <div class="row">
+            
+<div class="col-6"><h4>Edit details:</h4>
+    <div id="myInspector"></div></div>
+
+</div>
+
+
+     
+    
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <button id="SaveButton" class="btn btn-success" onclick="save()">
+            Save
+          </button>
+          <button class="btn btn-info" onclick="load()">Load</button>
+          <p>Diagram Model saved in JSON format:</p>
+          <textarea id="mySavedModel" class="form-control" rows="10">
+[{"key":1, "name":"Stella Payne Diaz", "title":"CEO", "dept": "Management", "email": "sdiaz@example.com", "phone": "(234) 555-6789" },
+        {"key":2, "name":"Luke Warm", "title":"VP Marketing/Sales", "dept": "Management", "email": "lwarm@example.com", "phone": "(234) 555-6789", "parent":1},
+        {"key":3, "name":"Meg Meehan Hoffa", "title":"Sales", "dept": "Sales", "email": "mhoffa@example.com", "phone": "(234) 555-6789", "parent":2},
+        {"key":4, "name":"Peggy Flaming", "title":"VP Engineering", "dept": "Management", "email": "pflaming@example.com", "phone": "(234) 555-6789", "parent":1},
+        {"key":5, "name":"Saul Wellingood", "title":"Manufacturing", "dept": "Production", "email": "swellingood@example.com", "phone": "(234) 555-6789", "parent":4},
+        {"key":6, "name":"Al Ligori", "title":"Marketing", "dept": "Marketing", "email": "aligori@example.com", "phone": "(234) 555-6789", "parent":2},
+        {"key":7, "name":"Dot Stubadd", "title":"Sales Rep", "dept": "Sales", "email": "dstubadd@example.com", "phone": "(234) 555-6789", "parent":3},
+        {"key":8, "name":"Les Ismore", "title":"Project Mgr", "dept": "Production", "email": "lismore@example.com", "phone": "(234) 555-6789", "parent":5},
+        {"key":9, "name":"April Lynn Parris", "title":"Events Mgr", "dept": "Marketing", "email": "aparris@example.com", "phone": "(234) 555-6789", "parent":6},
+        {"key":10, "name":"Xavier Breath", "title":"Engineering", "dept": "Engineering", "email": "xbreath@example.com", "phone": "(234) 555-6789", "parent":4},
+        {"key":11, "name":"Anita Hammer", "title":"Process", "dept": "Production", "email": "ahammer@example.com", "phone": "(234) 555-6789", "parent":5},
+        {"key":12, "name":"Billy Aiken", "title":"Software", "dept": "Engineering", "email": "baiken@example.com", "phone": "(234) 555-6789", "parent":10},
+        {"key":13, "name":"Stan Wellback", "title":"Testing", "dept": "Engineering", "email": "swellback@example.com", "phone": "(234) 555-6789", "parent":10},
+        {"key":14, "name":"Marge Innovera", "title":"Hardware", "dept": "Engineering", "email": "minnovera@example.com", "phone": "(234) 555-6789", "parent":10},
+        {"key":15, "name":"Evan Elpus", "title":"Quality", "dept": "Production", "email": "eelpus@example.com", "phone": "(234) 555-6789", "parent":5},
+        {"key":16, "name":"Lotta B. Essen", "title":"Sales Rep", "dept": "Sales", "email": "lessen@example.com", "phone": "(234) 555-6789", "parent":3}
+                
+        ]
+        </textarea
+          > 
+
+          <!-- <textarea id="mySavedModel" class="form-control" rows="10">
+            {
+                "class": "go.TreeModel",
+                "nodeDataArray": [
+                    {"key":1, "name":"Stella Payne Diaz", "title":"CEO", "dept": "Management", "pic":"1.jpg", "email": "sdiaz@example.com", "phone": "(234) 555-6789" },
+                    {"key":2, "name":"Luke Warm", "title":"VP Marketing/Sales", "dept": "Management", "pic":"2.jpg", "email": "lwarm@example.com", "phone": "(234) 555-6789", "parent":1},
+                    {"key":3, "name":"Meg Meehan Hoffa", "title":"Sales", "dept": "Sales", "pic":"3.jpg", "email": "mhoffa@example.com", "phone": "(234) 555-6789", "parent":2},
+                    {"key":4, "name":"Peggy Flaming", "title":"VP Engineering", "dept": "Management", "pic":"4.jpg", "email": "pflaming@example.com", "phone": "(234) 555-6789", "parent":1},
+                    {"key":5, "name":"Saul Wellingood", "title":"Manufacturing", "dept": "Production", "pic":"5.jpg", "email": "swellingood@example.com", "phone": "(234) 555-6789", "parent":4},
+                    {"key":6, "name":"Al Ligori", "title":"Marketing", "dept": "Marketing", "pic":"6.jpg", "email": "aligori@example.com", "phone": "(234) 555-6789", "parent":2},
+                    {"key":7, "name":"Dot Stubadd", "title":"Sales Rep", "dept": "Sales", "pic":"7.jpg", "email": "dstubadd@example.com", "phone": "(234) 555-6789", "parent":3},
+                    {"key":8, "name":"Les Ismore", "title":"Project Mgr", "dept": "Production", "pic":"8.jpg", "email": "lismore@example.com", "phone": "(234) 555-6789", "parent":5},
+                    {"key":9, "name":"April Lynn Parris", "title":"Events Mgr", "dept": "Marketing", "pic":"9.jpg", "email": "aparris@example.com", "phone": "(234) 555-6789", "parent":6},
+                    {"key":10, "name":"Xavier Breath", "title":"Engineering", "dept": "Engineering", "pic":"10.jpg", "email": "xbreath@example.com", "phone": "(234) 555-6789", "parent":4},
+                    {"key":11, "name":"Anita Hammer", "title":"Process", "dept": "Production", "pic":"11.jpg", "email": "ahammer@example.com", "phone": "(234) 555-6789", "parent":5},
+                    {"key":12, "name":"Billy Aiken", "title":"Software", "dept": "Engineering", "pic":"12.jpg", "email": "baiken@example.com", "phone": "(234) 555-6789", "parent":10},
+                    {"key":13, "name":"Stan Wellback", "title":"Testing", "dept": "Engineering", "pic":"13.jpg", "email": "swellback@example.com", "phone": "(234) 555-6789", "parent":10},
+                    {"key":14, "name":"Marge Innovera", "title":"Hardware", "dept": "Engineering", "pic":"14.jpg", "email": "minnovera@example.com", "phone": "(234) 555-6789", "parent":10},
+                    {"key":15, "name":"Evan Elpus", "title":"Quality", "dept": "Production", "pic":"15.jpg", "email": "eelpus@example.com", "phone": "(234) 555-6789", "parent":5},
+                    {"key":16, "name":"Lotta B. Essen", "title":"Sales Rep", "dept": "Sales", "pic":"16.jpg", "email": "lessen@example.com", "phone": "(234) 555-6789", "parent":3}
+                ]
+            }
+                    </textarea
+                      > -->
+
+        
+          <button id="downloadJson" class="btn btn-primary">Download JSON</button>
+        </div>
+        
+      </div>
+    </div>
+     
+      <!-- Modal Dialog -->
+      <dialog>
+        <div style="display: flex; flex-direction: column">
+          <p></p>
+          <p>Click anywhere to close</p>
+        </div>
+      </dialog>
+    </div>
+    <!-- Include html2canvas and jsPDF libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+
+    <!-- Bootstrap and necessary plugins -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- GoJS, Prism, and Custom Script -->
+    <script src="https://unpkg.com/gojs@3.0.11/release/go.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://unpkg.com/create-gojs-kit@3.0.11/dist/extensions/DataInspector.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("savePdfButton")
+        .addEventListener("click", function () {
+          html2canvas(document.getElementById("myDiagramDiv")).then(
+            (canvas) => {
+              const imgData = canvas.toDataURL("image/png");
+              const { jsPDF } = window.jspdf;
+              const pdf = new jsPDF();
+              pdf.addImage(imgData, "PNG", 10, 10, 190, 0); // x, y, width, height
+              pdf.save("diagram.pdf");
+            }
+          );
+        });
+    </script>
+    <script>
+      document
+        .getElementById("downloadJson")
+        .addEventListener("click", function () {
+          const jsonText = document.getElementById("mySavedModel").value;
+          let jsonData;
+          try {
+            const parsedData = JSON.parse(jsonText);
+            jsonData = parsedData;
+          } catch (error) {
+            alert("Invalid JSON format");
+            return;
+          }
+
+          const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+            type: "application/json",
+          });
+          const url = URL.createObjectURL(blob);
+
+          // Create a temporary link to download the blob
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "nodeDataArray.json"; // The name of the file to download
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url); // Clean up the URL object
+        });
+    </script>
+  </body>
+</html>
